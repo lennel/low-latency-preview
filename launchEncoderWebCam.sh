@@ -15,7 +15,7 @@ else
 fi
 
 echo Oh 💩 here we go!
-echo View your stream at http://${TARGETSERVER}:8080/ldashplay/${STREAMID}/manifest.mpd
+echo View your stream at http://${TARGETSERVER}:${PORT}/ldashplay/${STREAMID}/manifest.mpd
 
 input='-f lavfi -i testsrc2=size=1920x1080:rate=30 -pix_fmt yuv420p'
 
@@ -56,5 +56,5 @@ ffmpeg/ffmpeg \
     -remove_at_exit 1 \
     -adaptation_sets "id=0,streams=v id=1,streams=a" \
     -f dash \
-    http://${TARGETSERVER}:8080/ldash/${STREAMID}/manifest.mpd
+    http://${TARGETSERVER}:${PORT}/ldash/${STREAMID}/manifest.mpd
 
