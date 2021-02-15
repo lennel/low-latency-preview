@@ -1,11 +1,9 @@
-package handlers
+package main
 
 import (
 	"net/http"
 	"net/url"
 	"path"
-
-	"github.com/lennel/low-latency-preview/utils"
 )
 
 type DashPlayHandler struct {
@@ -13,13 +11,13 @@ type DashPlayHandler struct {
 }
 
 func (l *DashPlayHandler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
-	utils.GetDownloadLogger().Infof("Received play request\n")
+	GetDownloadLogger().Infof("Received play request\n")
 	l.servePlayer(w, req)
 }
 
 func (l *DashPlayHandler) servePlayer(w http.ResponseWriter, req *http.Request) {
 
-	utils.GetMainLogger().Errorf("KEV = " + req.URL.EscapedPath() + "\n")
+	GetMainLogger().Errorf("KEV = " + req.URL.EscapedPath() + "\n")
 
 	curFileURL := ""
 	if req.URL.EscapedPath() == "/" {
@@ -32,7 +30,7 @@ func (l *DashPlayHandler) servePlayer(w http.ResponseWriter, req *http.Request) 
 	base, _ := url.Parse("http://" + req.Host)
 	relativeUrl, _ := url.Parse(curFilePath)
 	manifestUrl := base.ResolveReference(relativeUrl).String()
-	utils.GetPlayerLogger().Infof("Set player path to %s", manifestUrl)
+	GetPlayerLogger().Infof("Set player path to %s", manifestUrl)
 	html := `
 	<!DOCTYPE html>
 	<html ng-app="DashPlayer" lang="en">

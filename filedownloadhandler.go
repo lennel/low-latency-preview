@@ -1,4 +1,4 @@
-package handlers
+package main
 
 import (
 	"io"
@@ -7,8 +7,6 @@ import (
 	"path"
 	"strings"
 	"time"
-
-	"github.com/streamlinevideo/low-latency-preview/utils"
 )
 
 type FileDownloadHandler struct {
@@ -17,7 +15,7 @@ type FileDownloadHandler struct {
 }
 
 func (l *FileDownloadHandler) ServeHTTP(w http.ResponseWriter, req *http.Request) {
-	utils.GetDownloadLogger().Infof("Received download request\n")
+	GetDownloadLogger().Infof("Received download request\n")
 	l.serveDownload(w, req)
 }
 
@@ -40,13 +38,13 @@ func (l *FileDownloadHandler) serveDownload(w http.ResponseWriter, req *http.Req
 	curFilePath := path.Join(l.getSourcePath(req), curFileURL)
 	file, err := os.Open(curFilePath) // For read access.
 	if err != nil {
-		utils.GetDownloadLogger().Errorf("Failed to open file: %v \n", err)
+		GetDownloadLogger().Errorf("Failed to open file: %v \n", err)
 		http.NotFound(w, req)
 		return
 	}
 	defer file.Close()
 
-	utils.GetDownloadLogger().Debugf("file %s was requested @ %v \n", curFileURL, time.Now().Format(time.RFC3339))
+	GetDownloadLogger().Debugf("file %s was requested @ %v \n", curFileURL, time.Now().Format(time.RFC3339))
 
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Transfer-Encoding", "chunked")
@@ -70,13 +68,13 @@ func (l *FileDownloadHandler) serveDownload(w http.ResponseWriter, req *http.Req
 			bytesread, read_err = file.Read(buffer)
 			if read_err != nil {
 				if read_err != io.EOF { // print out if read error
-					utils.GetDownloadLogger().Errorf("Failed to read file: %v \n", err)
-                                        panic(read_err)
+					GetDownloadLogger().Errorf("Failed to read file: %v \n", err)
+					panic(read_err)
 				}
 			}
 
 			if bytesread > 0 {
-				utils.GetDownloadLogger().Debugf("%s read %d bytes \n", curFileURL, bytesread)
+				GetDownloadLogger().Debugf("%s read %d bytes \n", curFileURL, bytesread)
 				_, errpr := w.Write(buffer[:bytesread])
 				if errpr != nil {
 					panic(errpr)
@@ -94,10 +92,10 @@ func (l *FileDownloadHandler) serveDownload(w http.ResponseWriter, req *http.Req
 				// if read to end and uploading is done, time to close the downloading too
 				break
 			}
-                        utils.GetDownloadLogger().Debugf("Read to end, but uploading is not finished yet: %v \n", err)
+			GetDownloadLogger().Debugf("Read to end, but uploading is not finished yet: %v \n", err)
 		}
 		time.Sleep(50 * time.Millisecond)
 	}
-	utils.GetDownloadLogger().Debugf("file %s was downloaded @ %v \n", curFileURL, time.Now().Format(time.RFC3339))
+	GetDownloadLogger().Debugf("file %s was downloaded @ %v \n", curFileURL, time.Now().Format(time.RFC3339))
 
 }

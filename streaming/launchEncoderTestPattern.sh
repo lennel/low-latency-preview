@@ -43,7 +43,7 @@ ffmpeg/ffmpeg \
     -keyint_min 60 \
     -b:v 3000k \
     -pix_fmt yuv420p \
-    -vf "fps=30,drawtext=fontfile=utils/OpenSans-Bold.ttf:box=1:fontcolor=black:boxcolor=white:fontsize=100':x=40:y=400:textfile=utils/text.txt" \
+    -vf "fps=30,drawtext=fontfile=OpenSans-Bold.ttf:box=1:fontcolor=black:boxcolor=white:fontsize=100':x=40:y=400:textfile=text.txt" \
     -method PUT \
     -seg_duration 2 \
     -streaming 1 \
