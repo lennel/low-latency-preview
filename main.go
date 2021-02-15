@@ -9,9 +9,9 @@ import (
 	"time"
 
 	"github.com/gorilla/mux"
+	"github.com/lennel/low-latency-preview/handlers"
+	"github.com/lennel/low-latency-preview/utils"
 	"github.com/rs/cors"
-	"github.com/streamlinevideo/low-latency-preview/handlers"
-	"github.com/streamlinevideo/low-latency-preview/utils"
 )
 
 func main() {

@@ -14,6 +14,8 @@ else
     STREAMID="$2"
 fi
 
+
+
 if [ -z "$3" ]; then
     PORT="8080"
     echo "Target Port not specified, assuming ${PORT}..."
@@ -34,12 +36,13 @@ ffmpeg/ffmpeg \
     -re \
     -f lavfi \
     -i "testsrc2=size=1920x1080:rate=30" \
-    -pix_fmt yuv420p \
-    -map 0:v \
+    -f lavfi -i "sine=frequency=440:b=4" \
     -c:v ${x264enc} \
     -g 60 \
+    -map 0:v \
     -keyint_min 60 \
     -b:v 3000k \
+    -pix_fmt yuv420p \
     -vf "fps=30,drawtext=fontfile=utils/OpenSans-Bold.ttf:box=1:fontcolor=black:boxcolor=white:fontsize=100':x=40:y=400:textfile=utils/text.txt" \
     -method PUT \
     -seg_duration 2 \
@@ -53,6 +56,6 @@ ffmpeg/ffmpeg \
     -window_size 2  \
     -extra_window_size 3 \
     -remove_at_exit 1 \
-    -adaptation_sets "id=0,streams=v id=1,streams=a" \
+    -adaptation_sets "id=0,streams=v" \
     -f dash \
     http://${TARGETSERVER}:${PORT}/ldash/${STREAMID}/manifest.mpd

@@ -5,7 +5,7 @@ import (
 	"net/url"
 	"path"
 
-	"github.com/streamlinevideo/low-latency-preview/utils"
+	"github.com/lennel/low-latency-preview/utils"
 )
 
 type DashPlayHandler struct {
@@ -25,7 +25,7 @@ func (l *DashPlayHandler) servePlayer(w http.ResponseWriter, req *http.Request) 
 	if req.URL.EscapedPath() == "/" {
 		curFileURL = "/localhost/manifest.mpd"
 	} else {
-		curFileURL = req.URL.EscapedPath()[len("/ldashplay"):]
+		curFileURL = req.URL.EscapedPath()[len("/ldash"):]
 	}
 
 	curFilePath := path.Join("ldash", curFileURL)

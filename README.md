@@ -1,3 +1,7 @@
+I am kicking off from Colleen Henry's low latency dash preview
+
+
+
 
 # Streamline Low Latency DASH preview
 
@@ -74,6 +78,9 @@ Be impressed by the speed! Be excited by the opportunities for scalability. Lear
 The streamline team hangs out in the [video-dev](http://video-dev.herokuapp.com/) slack in the [#streamline room](https://video-dev.slack.com/messages/CD03ZUF8F).  Feel free to join the fun, ask for features, give feedback, etc.
 
 ## Credits
+
+If you have enabled Origin-Assisted Prefetch, you must ensure that your origin sends a response header that includes the absolute/relative path in the URLs for the manifest and segment files that must be prefetched.
+
 
 - Credit to Lei Zhang [@codingtmd](https://github.com/codingtmd) for writing the server. 
 - Thank you to Matt Szatmary [@szatmary](https://github.com/szatmary) for helping us debug. 
