@@ -4,5 +4,5 @@ RUN mkdir www
 RUN mkdir logs
 
 RUN go install github.com/lennel/low-latency-preview
-ENTRYPOINT /go/bin/low-latency-preview www 8000
-EXPOSE 8000
+ENTRYPOINT /go/bin/low-latency-preview www 8080
+EXPOSE 8080
