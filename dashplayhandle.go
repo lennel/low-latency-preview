@@ -598,6 +598,7 @@ func (l *DashPlayHandler) servePlayer(w http.ResponseWriter, req *http.Request) 
 	</head>
 	<body onload="setSource()">
 		<div>
+Testing DEV CI setup
 	Dash Test Player for low latency. Make sure your system clock has been recently synched to a NTP server. <br/>
 	Segments behind <now> for live: <input id="segBehind" type="text"  value="0" style="width:20px">&nbsp;
 	Target buffer in seconds: <input id="targetBufferInput" type="text"  value="0.6" style="width:25px">&nbsp;
