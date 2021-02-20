@@ -1,5 +1,5 @@
 steps:
   - name: 'gcr.io/cloud-builders/docker'
-    args: [ 'build', '-t', 'gcr.io/dashorigin/github.com/lennel/low-latency-preview:latest', '.' ]
+    args: [ 'build', '-t', 'gcr.io/dashorigin/github.com/lennel/low-latency-preview:latest', '-t', 'gcr.io/dashorigin/github.com/lennel/low-latency-preview:$COMMIT_SHA', '.' ]
 images:
   - 'gcr.io/dashorigin/github.com/lennel/low-latency-preview:latest'
